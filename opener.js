@@ -2,6 +2,11 @@
 
 let columns = [];
 var num;
+let texty;
+let speed;
+let gravity;
+let stopbounce;
+
 
 function setup() {
     num = 100;
@@ -12,6 +17,10 @@ function setup() {
         columns[i].x = i * num;
     }
     x = 0;
+    texty = height/2;
+    speed = 1;
+    gravity = 0.6;
+    stopbounce = 0;
 }
 
 function windowResized() {
@@ -19,12 +28,13 @@ function windowResized() {
 }
 
 function draw() {
+
     background(225);
     textSize(80);
     textFont("komu-b");
     textAlign(CENTER);
     fill(33, 37, 41)
-    text('SETH KNIGHTS', width/2, height/2);
+    text('SETH KNIGHTS', width/2, texty - 10);
     for (let i = 0; i < columns.length; i++) {
         columns[i].display();
         if (x < columns.length) {
@@ -37,6 +47,25 @@ function draw() {
         }
         columns[i].reveal();
     }
+
+    if (x >= columns.length) {
+        texty += speed;
+        speed += gravity;
+
+
+            if (texty > height) {
+                if (stopbounce <= 8) {
+                    speed = -0.85 * speed;
+                    stopbounce += 1;
+                } else {
+                    texty = height - 20;
+                    speed = 0;
+                    gravity = 0;
+                }
+
+            }
+        }
+
 }
 
 class Reveal {
