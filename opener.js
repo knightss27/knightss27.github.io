@@ -6,6 +6,8 @@ let texty;
 let speed;
 let gravity;
 let stopbounce;
+let liney;
+let fade;
 
 
 function setup() {
@@ -21,6 +23,8 @@ function setup() {
     speed = 1;
     gravity = 0.6;
     stopbounce = 0;
+    liney = height + 5;
+    fade = 0;
 }
 
 function windowResized() {
@@ -38,7 +42,7 @@ function draw() {
     for (let i = 0; i < columns.length; i++) {
         columns[i].display();
         if (x < columns.length) {
-            if (columns[x].h <= 750) {
+            if (columns[x].h <= width/3 * 2) {
                 x += 1;
             }
         }
@@ -52,15 +56,32 @@ function draw() {
         texty += speed;
         speed += gravity;
 
+        if (stopbounce > 2) {
+            if (speed > 10) {
+                speed = 0;
+                gravity = 0;
+            }
+
+            stroke(3);
+            line(width/2 - 150, liney, width/2 + 150, liney);
+            if (liney > texty + 80) {
+                liney -= 5;
+            } else {
+                textSize(30);
+                textFont('komu-b')
+                fill(33, 37, 41, fade);
+                noStroke();
+                text('HTML  +  CSS  +  PYTHON', width/2, liney + 30);
+                fade += 5;
+            }
+
+
+        }
 
             if (texty > height) {
-                if (stopbounce <= 8) {
+                if (stopbounce <= 2) {
                     speed = -0.85 * speed;
                     stopbounce += 1;
-                } else {
-                    texty = height - 20;
-                    speed = 0;
-                    gravity = 0;
                 }
 
             }
