@@ -42,7 +42,7 @@ function draw() {
     for (let i = 0; i < columns.length; i++) {
         columns[i].display();
         if (x < columns.length) {
-            if (columns[x].h <= width/3 * 2) {
+            if (columns[x].h <= height/3 * 2) {
                 x += 1;
             }
         }
