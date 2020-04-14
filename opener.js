@@ -1,6 +1,7 @@
 // opener.js
 
-let columns = [];
+let columnsv = [];
+let columnsh = [];
 var num;
 let texty;
 let speed;
@@ -8,15 +9,22 @@ let gravity;
 let stopbounce;
 let liney;
 let fade;
-
+let buttonfade;
+let disp;
+let hchange;
+let fx;
+let fy;
+let x;
+let button;
 
 function setup() {
-    num = 100;
+    num = 20;
     var canvas = createCanvas(windowWidth, windowHeight);
     canvas.style('display', 'block');
-    for (let i = 0; i < width/num; i++) {
-        columns[i] = new Reveal();
-        columns[i].x = i * num;
+    canvas.parent('sketch-div');
+    for (let i = 0; i < num; i++) {
+        columnsv[i] = new Reveal();
+        columnsv[i].x = floor(i * (width/num));
     }
     x = 0;
     texty = height/2;
@@ -25,6 +33,14 @@ function setup() {
     stopbounce = 0;
     liney = height + 5;
     fade = 0;
+    buttonfade = 0;
+    disp = false;
+    hchange = 0;
+    fx = 0;
+    fy = -.05;
+    button = createButton();
+    button.position(width/2 - (340/2), height/2 + 100);
+    button.style('opacity', buttonfade);
 }
 
 function windowResized() {
@@ -34,25 +50,26 @@ function windowResized() {
 function draw() {
 
     background(225);
+    noStroke();
     textSize(80);
     textFont("komu-b");
     textAlign(CENTER);
-    fill(33, 37, 41)
+    fill(33, 37, 41);
     text('SETH KNIGHTS', width/2, texty - 10);
-    for (let i = 0; i < columns.length; i++) {
-        columns[i].display();
-        if (x < columns.length) {
-            if (columns[x].h <= height/3 * 2) {
+    for (let i = 0; i < columnsv.length; i++) {
+        columnsv[i].display();
+        if (x < columnsv.length) {
+            if (columnsv[x].h <= height/6 * 5) {
                 x += 1;
             }
         }
-        if (x == i) {
-            columns[i].transform();
+        if (x === i) {
+            columnsv[i].transform();
         }
-        columns[i].reveal();
+        columnsv[i].reveal();
     }
 
-    if (x >= columns.length) {
+    if (x >= columnsv.length) {
         texty += speed;
         speed += gravity;
 
@@ -63,15 +80,16 @@ function draw() {
             }
 
             stroke(3);
-            line(width/2 - 150, liney, width/2 + 150, liney);
+            strokeWeight(2);
+            line(width/2 - 150, liney, width/2 + 150, liney - hchange);
             if (liney > texty + 80) {
                 liney -= 5;
             } else {
                 textSize(30);
-                textFont('komu-b')
+                textFont('komu-b');
                 fill(33, 37, 41, fade);
                 noStroke();
-                text('HTML  +  CSS  +  PYTHON', width/2, liney + 30);
+                text('HTML  +  CSS  +  PYTHON', width/2, liney + 30 - hchange);
                 fade += 5;
             }
 
@@ -87,13 +105,50 @@ function draw() {
             }
         }
 
+        if (fade >= 255) {
+
+            noStroke();
+            fill(250,150,0);
+            rect(width/2 - 50, height, 100, -fx);
+            if (disp === false) {
+                if(fx < height/2 + 100) {
+                    fx += 10 + (fx/30);
+                    if ((height - fx) - liney < 30) {
+                        liney -= 10 + (fx/30);
+                        texty -= 10 + (fx/30);
+                    }
+                } else {
+                    disp = true;
+                }
+            } else {
+                fx -= 20 + (fx/30);
+                if (liney < height/2) {
+                    liney -= 1 + fy;
+                    texty -= 1 + fy;
+                    fy = fy * 1.2;
+                } else {
+                    // button.attribute('class','btn');
+                    // if (buttonfade < 1) {
+                    //     button.style('opacity', buttonfade);
+                    //     buttonfade += 0.01;
+                    // }
+                }
+            }
+
+
+        }
 }
+
+function mouseWheel(event) {
+}
+
+
 
 class Reveal {
     constructor() {
         this.y = 0;
         this.h = height;
-        this.w = num;
+        this.w = ceil(width/num);
     }
 
     display() {
@@ -108,7 +163,7 @@ class Reveal {
     }
 
     reveal() {
-        if (this.moving == true) {
+        if (this.moving === true) {
             this.h -= 3 * (this.h/90);
         }
     }
