@@ -17,6 +17,10 @@ let fy;
 let x;
 let button;
 
+function preload() {
+
+}
+
 function setup() {
     num = 20;
     var canvas = createCanvas(windowWidth, windowHeight);
@@ -38,9 +42,9 @@ function setup() {
     hchange = 0;
     fx = 0;
     fy = -.05;
-    button = createButton();
-    button.position(width/2 - (340/2), height/2 + 100);
-    button.style('opacity', buttonfade);
+    button = createButton('CONTINUE').attribute('class','btn-main');
+    button.hide();
+    button.position(width/2, height/2 + 100);
 }
 
 function windowResized() {
@@ -91,6 +95,7 @@ function draw() {
                 noStroke();
                 text('HTML  +  CSS  +  PYTHON', width/2, liney + 30 - hchange);
                 fade += 5;
+                button.show();
             }
 
 
@@ -127,11 +132,11 @@ function draw() {
                     texty -= 1 + fy;
                     fy = fy * 1.2;
                 } else {
-                    // button.attribute('class','btn');
-                    // if (buttonfade < 1) {
-                    //     button.style('opacity', buttonfade);
-                    //     buttonfade += 0.01;
-                    // }
+                    button.style('opacity', buttonfade);
+                    if (buttonfade < 1) {
+                        button.style('opacity', buttonfade);
+                        buttonfade += 0.01;
+                    }
                 }
             }
 
