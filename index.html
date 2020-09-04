@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
+    <meta http-equiv=”Page-Enter” content=”blendtrans(duration=1.5)” />
+    <meta http-equiv=”Page-Exit” content=”blendtrans(duration=1.5″ /> 
+
     <!--  Open Graph Tags  -->
-    <meta content="Seth Knights" property="og:title"/>
-    <meta content="Portfolio" property="og:description"/>
+    <meta content="Student & Programmer" property="og:description"/>
     <meta content="en_US" property="og:locale"/>
-    <meta content="Seth Knights" property="og:site_name"/>
-    <meta content="https://cdn.discordapp.com/attachments/473705436793798676/751350627556130888/unknown.png" property="og:image"/>
+    <meta content="https://seth.cx/images/og-image.png" property="og:image"/>
 
     <!--  CSS  -->
     <link href="style.css" rel="stylesheet">
@@ -24,6 +25,8 @@
 
 </head>
 <body>
+
+    <script>document.body.classList.add('fade-out')</script>
 
     <div class="opener">
         <div class="name-container">
@@ -45,6 +48,13 @@
     </ul>
 
     <img src="/SVG/tri1.svg" class="triangle" />
+
+    <script type="text/javascript">
+        window.onload = () => {
+            document.body.classList.remove('fade-out')
+        }
+    
+    </script>
 
 </body>
 </html>

@@ -2,6 +2,13 @@ body {
     background: #e4e1d9;
     margin: 0px;
     overflow: hidden !important;
+    opacity: 1;
+    transition: 1s opacity;
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: none;
 }
 
 .triangle {
@@ -38,6 +45,7 @@ body {
 }
 
 .menu-option {
+    transition: ease padding-top .4s;
     padding-left: 15px;
     padding-right: 15px;
 }
