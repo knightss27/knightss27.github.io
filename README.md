@@ -1,2 +1,2 @@
 # knightss27.github.io
-Personal Portfolio
+My personal portfolio. Visit it at https://seth.cx/
