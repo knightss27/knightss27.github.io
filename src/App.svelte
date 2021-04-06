@@ -37,6 +37,7 @@
 		line-height: 2;
 		align-items: flex-start;
 		justify-content: center;
+		font-weight: 600;
 	}
 
 	div {
