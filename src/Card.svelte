@@ -1,8 +1,14 @@
 <script lang="ts">
   export let color: string = "";
+
+  let grow: boolean = false;
+
+  const transition = () => {
+    grow = true;
+  }
 </script>
 
-<div style="--color:{color}">
+<div style="--color:{color}" on:click={transition} class:grow>
   <slot />
 </div>
 
@@ -25,6 +31,18 @@
 
     &:hover {
       transform: scale(1);
+      :global(h1) {
+        margin-top: -130px;
+      }
+
+      // &.grow {
+      //   transition: ease width 1s, ease height 1s;
+      //   width: 100vw;
+      //   height: 100vh;
+      //   box-shadow: none;
+      //   margin: 0px;
+      // }
+
     }
 
     &::before {
@@ -46,7 +64,7 @@
       height: 100%;
       z-index: -1;
       background-color: var(--color);
-      transform: translateZ(-4rem) translateY(-400px);
+      transform: translateZ(-4rem) translateY(-100%);
       &:hover {
         transform: translateZ(-1px);
       }
