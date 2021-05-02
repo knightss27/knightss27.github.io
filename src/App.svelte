@@ -22,14 +22,12 @@
   <br />
   <h1>Projects</h1>
   <Project
-		images={
-			[
-				{src: "/img/fosshost/main_page.png"},
-				{src: "/img/fosshost/news_page.png"},
-				{src: "/img/fosshost/form_page.png"},
-			]
-		}
-	>
+    images={[
+      { src: "/img/fosshost/main_page.png" },
+      { src: "/img/fosshost/news_page.png" },
+      { src: "/img/fosshost/form_page.png" },
+    ]}
+  >
     <span slot="title">Fosshost</span>
     <span slot="description">
       As a volunteer developer for <a
@@ -47,14 +45,12 @@
     </span>
   </Project>
   <Project
-		images={
-			[
-				{src: "/img/aarch64/create_page.png"},
-				{src: "/img/aarch64/project_page.png"},
-				{src: "/img/aarch64/vm_page.png"},
-			]
-		}
-	>
+    images={[
+      { src: "/img/aarch64/create_page.png" },
+      { src: "/img/aarch64/project_page.png" },
+      { src: "/img/aarch64/vm_page.png" },
+    ]}
+  >
     <span slot="title">AArch64 Console (Fosshost)</span>
     <span slot="description">
       Along with developing a new site, I both designed and wrote the front-end
@@ -74,28 +70,28 @@
     </span>
   </Project>
   <Project
-		images={
-			[
-				{src: "/img/ctrace/main_page.png"},
-				{src: "/img/ctrace/checked_in.png"},
-				{src: "/img/ctrace/article.png"},
-			]
-		}
-	>
+    images={[
+      { src: "/img/ctrace/main_page.png" },
+      { src: "/img/ctrace/checked_in.png" },
+      { src: "/img/ctrace/article.png" },
+    ]}
+  >
     <span slot="title">cTrace</span>
     <span slot="description">
       Both myself and my close friend (and classmate) Nate Sales were approached
       by our school's administration during the summer of 2020 to design and
       build a COVID-19 contact tracing app. Due to state and county
-      restrictions, schools in Oregon were required to keep track of the locations
-      of both faculty and students at school. As such, we built a web app that
-      allowed for simple check-ins and check-outs of different locations on our
-      schools's campus. Although recommendations were altered before our school returned to any in-person learning, cTrace was used by faculty and staff from November until March to track their locations on campus.
-			You can read more about it <a
-			class="styled-link"
-			href="https://www.einpresswire.com/article/532863001/catlin-gabel-students-invent-app-to-track-on-campus-movement-during-covid-19"
-			target="_blank">here</a
-		>. Developed using React and Next.js.
+      restrictions, schools in Oregon were required to keep track of the
+      locations of both faculty and students at school. As such, we built a web
+      app that allowed for simple check-ins and check-outs of different
+      locations on our schools's campus. Although recommendations were altered
+      before our school returned to any in-person learning, cTrace was used by
+      faculty and staff from November until March to track their locations on
+      campus. You can read more about it <a
+        class="styled-link"
+        href="https://www.einpresswire.com/article/532863001/catlin-gabel-students-invent-app-to-track-on-campus-movement-during-covid-19"
+        target="_blank">here</a
+      >. Developed using React and Next.js.
     </span>
   </Project>
 </main>
