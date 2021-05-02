@@ -113,8 +113,4 @@
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
   }
-
-  .align-c {
-    text-align: center;
-  }
 </style>
