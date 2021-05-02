@@ -27,6 +27,15 @@
       { src: "/img/fosshost/news_page.png" },
       { src: "/img/fosshost/form_page.png" },
     ]}
+    links={[
+      { label: "Github", route: "https://github.com/fosshostorg/fosshost.org" },
+      {
+        label: "Figma",
+        route:
+          "https://www.figma.com/file/5hgu89uLaHeIis3SqS2MvM/Fosshost-Website-Update",
+      },
+      { label: "Fosshost", route: "https://fosshost.org" },
+    ]}
   >
     <span slot="title">Fosshost</span>
     <span slot="description">
@@ -49,6 +58,14 @@
       { src: "/img/aarch64/create_page.png" },
       { src: "/img/aarch64/project_page.png" },
       { src: "/img/aarch64/vm_page.png" },
+    ]}
+    links={[
+      { label: "Github", route: "https://github.com/fosshostorg/aarch64" },
+      { label: "Site", route: "https://console.aarch64.com/" },
+      {
+        label: "Figma",
+        route: "https://www.figma.com/file/j1c6ooPk8ja8jsyqqpqJ6r/A64-Dash",
+      },
     ]}
   >
     <span slot="title">AArch64 Console (Fosshost)</span>
@@ -75,19 +92,24 @@
       { src: "/img/ctrace/checked_in.png" },
       { src: "/img/ctrace/article.png" },
     ]}
+    links={[{ label: "Github", route: "https://github.com/natesales/ctrace" }]}
   >
     <span slot="title">cTrace</span>
     <span slot="description">
-      Both myself and my close friend (and classmate) Nate Sales were approached
-      by our school's administration during the summer of 2020 to design and
-      build a COVID-19 contact tracing app. Due to state and county
-      restrictions, schools in Oregon were required to keep track of the
-      locations of both faculty and students at school. As such, we built a web
-      app that allowed for simple check-ins and check-outs of different
-      locations on our schools's campus. Although recommendations were altered
-      before our school returned to any in-person learning, cTrace was used by
-      faculty and staff from November until March to track their locations on
-      campus. You can read more about it <a
+      Both myself and my close friend (and classmate) <a
+        class="styled-link"
+        href="https://natesales.net"
+        target="_blank">Nate Sales</a
+      >
+      were approached by our school's administration during the summer of 2020 to
+      design and build a COVID-19 contact tracing app. Due to state and county restrictions,
+      schools in Oregon were required to keep track of the locations of both faculty
+      and students at school. As such, we built a web app that allowed for simple
+      check-ins and check-outs of different locations on our schools's campus. Although
+      recommendations were altered before our school returned to any in-person learning,
+      cTrace was used by faculty and staff from November until March to track their
+      locations on campus. You can read more about it
+      <a
         class="styled-link"
         href="https://www.einpresswire.com/article/532863001/catlin-gabel-students-invent-app-to-track-on-campus-movement-during-covid-19"
         target="_blank">here</a
