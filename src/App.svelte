@@ -7,7 +7,7 @@
   <h1>Hi there, I'm</h1>
   <Header />
   <p>
-    Currently I'm high school junior interested in web development and computer
+    Currently I'm a high school junior interested in web development and computer
     graphics.
   </p>
   <p>
