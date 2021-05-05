@@ -139,9 +139,9 @@
   </Project>
   <Project
     images={[
-      { src: "/img/sethjs/main_page.png" },
-      { src: "/img/sethjs/button_page.png" },
-      { src: "/img/sethjs/stepper_page.png" },
+      { src: "/img/mdp/main_page.png" },
+      { src: "/img/mdp/scrolled_page.png" },
+      { src: "/img/mdp/packetframe_page.png" },
     ]}
     links={[
       { label: "Demo Site", route: "https://mdp-demo.seth.cx/#/docs/" },
