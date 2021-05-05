@@ -7,8 +7,8 @@
   <h1>Hi there, I'm</h1>
   <Header />
   <p>
-    Currently I'm a high school junior interested in web development and computer
-    graphics.
+    Currently I'm a high school junior interested in web development and
+    computer graphics.
   </p>
   <p>
     Essentially, I love writing visual code. I write a lot of stuff for the web
@@ -114,6 +114,27 @@
         href="https://www.einpresswire.com/article/532863001/catlin-gabel-students-invent-app-to-track-on-campus-movement-during-covid-19"
         target="_blank">here</a
       >. Developed using React and Next.js.
+    </span>
+  </Project>
+  <Project
+    images={[
+      { src: "/img/sethjs/main_page.png" },
+      { src: "/img/sethjs/button_page.png" },
+      { src: "/img/sethjs/stepper_page.png" },
+    ]}
+    links={[
+      { label: "Github", route: "https://github.com/knightss/sethjs" },
+      { label: "Site", route: "https://js.seth.cx/" },
+    ]}
+  >
+    <span slot="title">cTrace</span>
+    <span slot="description">
+      With working in web developement, I have had plenty of interactions with
+      component libraries. As an ongoing project, I decided to spend some time
+      making one of my own. It has a pretty specific style sense (which isn't
+      for everyone), but I think it's a nifty little library. The code is also
+      great to re-use for components I need in other places, without the same
+      design.
     </span>
   </Project>
 </main>
