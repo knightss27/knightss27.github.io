@@ -137,6 +137,34 @@
       design. Developed using Svelte.
     </span>
   </Project>
+  <Project
+    images={[
+      { src: "/img/sethjs/main_page.png" },
+      { src: "/img/sethjs/button_page.png" },
+      { src: "/img/sethjs/stepper_page.png" },
+    ]}
+    links={[
+      { label: "Demo Site", route: "https://mdp-demo.seth.cx/#/docs/" },
+      { label: "Github", route: "https://github.com/knightss27/rollup-plugin-mdsvex-pages" },
+    ]}
+  >
+    <span slot="title">MDsveX Pages</span>
+    <span slot="description">
+      In building some sites, and specifically in helping to build the frontend
+      for <a class="styled-link" target="_blank" href="https://packetframe.com/">Packetframe</a
+      >, I found there was
+      <em>a lot</em>
+      of boiler plate code in parsing Markdown files into documentation files, and
+      creating documentation layouts. On top of that, current solutions like Docusaurus
+      generated a separate page that was often annoying to both customize and use
+      without having a separate domain for your docs. To solve this issue, I built
+      a little rollup plugin that generates documentation pages from files, while
+      injecting itself into the code you have already written, allowing the documentation
+      route to fit seamlessly in your site. You can see it in action
+      <a class="styled-link" target="_blank" href="https://packetframe.com/#/docs">here</a>.
+      Built with Node.js / Rollup / Svelte.
+    </span>
+  </Project>
 </main>
 
 <style>
