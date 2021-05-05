@@ -123,18 +123,18 @@
       { src: "/img/sethjs/stepper_page.png" },
     ]}
     links={[
-      { label: "Github", route: "https://github.com/knightss/sethjs" },
       { label: "Site", route: "https://js.seth.cx/" },
+      { label: "Github", route: "https://github.com/knightss27/sethjs" },
     ]}
   >
-    <span slot="title">cTrace</span>
+    <span slot="title">seth.js</span>
     <span slot="description">
       With working in web developement, I have had plenty of interactions with
       component libraries. As an ongoing project, I decided to spend some time
       making one of my own. It has a pretty specific style sense (which isn't
       for everyone), but I think it's a nifty little library. The code is also
       great to re-use for components I need in other places, without the same
-      design.
+      design. Developed using Svelte.
     </span>
   </Project>
 </main>
