@@ -15,10 +15,10 @@
     using Svelte or React, but have also written quite a bit in Java (both with
     Processing and for school classes), and less so in Python and Go.
   </p>
-  <!-- <p>
+  <p>
     Outside of writing code, I play bass and lead both the Mock Trial and Speech
     & Debate teams at my school.
-  </p> -->
+  </p>
   <br />
   <h1>Projects</h1>
   <Project
