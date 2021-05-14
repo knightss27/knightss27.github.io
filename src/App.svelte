@@ -19,6 +19,13 @@
     Outside of writing code, I play bass and lead both the Mock Trial and Speech
     & Debate teams at my school.
   </p>
+  <p>
+    View my <a
+      class="styled-link"
+      href="https://github.com/knightss27"
+      target="_blank">Github</a
+    >.
+  </p>
   <br />
   <h1>Projects</h1>
   <Project
