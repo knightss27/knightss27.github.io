@@ -41,7 +41,7 @@
         route:
           "https://www.figma.com/file/5hgu89uLaHeIis3SqS2MvM/Fosshost-Website-Update",
       },
-      { label: "Fosshost", route: "https://fosshost.org" },
+      { label: "Site", route: "https://fosshost.org" },
     ]}
   >
     <span slot="title">Fosshost</span>
@@ -50,14 +50,13 @@
         class="styled-link"
         href="https://fosshost.org"
         target="_blank">fosshost.org</a
-      >, I partially designed and completely rewrote their new website. The site
-      should be in production soon, but for now you can view the most up to date
-      demo
-      <a
-        class="styled-link"
-        href="https://admiring-benz-a89dec.netlify.app/"
-        target="_blank">here</a
-      >. Developed using Svelte and Sapper.
+      >, I partially designed and completely rewrote their new website, the one
+      you see when you click that link! I wrote all of the code for the the
+      site, including a system that allows new applications to recieve
+      confirmation emails and have their projects automatically added to
+      Fosshost's project management system. Developed using Svelte and Sapper.
+      If you happen to have an open source project in need of some hosting, feel
+      free to apply!
     </span>
   </Project>
   <Project
@@ -68,11 +67,11 @@
     ]}
     links={[
       { label: "Github", route: "https://github.com/fosshostorg/aarch64" },
-      { label: "Site", route: "https://console.aarch64.com/" },
       {
         label: "Figma",
         route: "https://www.figma.com/file/j1c6ooPk8ja8jsyqqpqJ6r/A64-Dash",
       },
+      { label: "Site", route: "https://console.aarch64.com/" },
     ]}
   >
     <span slot="title">AArch64 Console (Fosshost)</span>
@@ -84,7 +83,7 @@
         href="https://aarch64.com"
         target="_blank">aarch64.com</a
       >
-      (which I did not have a part in), as well as providing an interface that was
+      (which I did not have a part in creating), as well as providing an interface that was
       similar enough to that of cloud providers like
       <a
         class="styled-link"
@@ -165,8 +164,8 @@
       { src: "/img/sethjs/stepper_page.png" },
     ]}
     links={[
-      { label: "Site", route: "https://js.seth.cx/" },
       { label: "Github", route: "https://github.com/knightss27/sethjs" },
+      { label: "Site", route: "https://js.seth.cx/" },
     ]}
   >
     <span slot="title">seth.js</span>
