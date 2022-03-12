@@ -10,7 +10,7 @@
     Currently I'm a high school senior interested computer science and history.
   </p>
   <p>
-    As it stands, I've write a lot of stuff for the web using Svelte or React,
+    As it stands, I've written a lot of stuff for the web using Svelte or React,
     but have also written significantly in Java, and less so in Python and Go.
   </p>
   <p>
