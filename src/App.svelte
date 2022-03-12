@@ -7,13 +7,11 @@
   <h1>Hi there, I'm</h1>
   <Header />
   <p>
-    Currently I'm a high school junior interested in web development and
-    computer graphics.
+    Currently I'm a high school senior interested computer science and history.
   </p>
   <p>
-    Essentially, I love writing visual code. I write a lot of stuff for the web
-    using Svelte or React, but have also written quite a bit in Java (both with
-    Processing and for school classes), and less so in Python and Go.
+    As it stands, I've write a lot of stuff for the web using Svelte or React,
+    but have also written significantly in Java, and less so in Python and Go.
   </p>
   <p>
     Outside of writing code, I play bass and lead both the Mock Trial and Speech
@@ -28,6 +26,37 @@
   </p>
   <br />
   <h1>Projects</h1>
+  <Project
+    images={[
+      { src: "/img/uzbek-dictionary/fuzzy_search.png" },
+      { src: "/img/uzbek-dictionary/example_response.png" },
+      { src: "/img/uzbek-dictionary/cyr_fuzzy_search.png" },
+    ]}
+    links={[
+      {
+        label: "Github",
+        route: "https://github.com/knightss27/uzbek-english-dictionary",
+      },
+      { label: "Site", route: "https://www.uzbek-dictionary.org/" },
+    ]}
+  >
+    <span slot="title">uzbek-dictionary.org</span>
+    <span slot="description">
+      Developed an online resource to help Uzbek language learners (and Uzbek
+      English learners). One of few (if not the only) existing online Uzbek
+      dictionary to allow Cyrillic searching and general fuzzy searching
+      abilities. Translations are taken from the parsed PDFs of <a
+        class="styled-link"
+        href="https://github.com/Herve-Guerin/uzbek-glossary"
+        target="_blank">Herve Guerin's Uzbek Glossary</a
+      >, as well as results from
+      <a
+        class="styled-link"
+        href="https://ctild.indiana.edu/Main/Uzbek-EnglishDictionary"
+        target="_blank">CTILD's Uzbek-English Dictionary</a
+      >. Built with Svelte / Sapper and MongoDB.
+    </span>
+  </Project>
   <Project
     images={[
       { src: "/img/fosshost/main_page.png" },
@@ -83,8 +112,8 @@
         href="https://aarch64.com"
         target="_blank">aarch64.com</a
       >
-      (which I did not have a part in creating), as well as providing an interface that was
-      similar enough to that of cloud providers like
+      (which I did not have a part in creating), as well as providing an interface
+      that was similar enough to that of cloud providers like
       <a
         class="styled-link"
         href="https://www.digitalocean.com/"
