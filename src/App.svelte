@@ -47,7 +47,7 @@
     <span slot="description">
     Developed the only modern network weathermap plugin for Grafana, an open-source 
     monitoring platform. Approved and published as a community plugin 
-    with over 3000 instalations. Built entirely with SVG transformations in React, 
+    with over 3000 installations. Built entirely with SVG transformations in React, 
     inspired by the well known, original
       <a
         class="styled-link"
