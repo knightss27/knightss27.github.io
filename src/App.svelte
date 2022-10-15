@@ -7,7 +7,8 @@
   <h1>Hi there, I'm</h1>
   <Header />
   <p>
-    I'm currently a Freshman at The University of Chicago, double majoring in Computer Science and Linguistics.
+    I'm currently a Freshman at The University of Chicago, double majoring in
+    Computer Science and Linguistics.
   </p>
   <p>
     As it stands, I've written a lot of stuff for the web using Svelte or React,
@@ -35,26 +36,48 @@
     links={[
       {
         label: "Github",
-        route: "https://github.com/knightss27/grafana-network-weathermap"
+        route: "https://github.com/knightss27/grafana-network-weathermap",
       },
       {
         label: "Grafana",
-        route: "https://grafana.com/grafana/plugins/knightss27-weathermap-panel/"
-      }
+        route:
+          "https://grafana.com/grafana/plugins/knightss27-weathermap-panel/",
+      },
     ]}
-    >
+  >
     <span slot="title">Grafana Network Weathermap</span>
     <span slot="description">
-    Developed the only modern network weathermap plugin for Grafana, an open-source 
-    monitoring platform. Approved and published as a community plugin 
-    with over 3000 installations. Built entirely with SVG transformations in React, 
-    inspired by the well known, original
+      Developed the only modern network weathermap plugin for Grafana, an
+      open-source monitoring platform. Approved and published as a community
+      plugin with over 3000 installations. Built entirely with SVG
+      transformations in React, inspired by the well known, original
       <a
         class="styled-link"
         href="https://network-weathermap.com/"
         target="_blank"
         >PHP Network Weathermap.
       </a>
+    </span>
+  </Project>
+  <Project
+    images={[
+      { src: "/img/capr/capr_0.png" },
+      { src: "/img/capr/capr_1.png" },
+      { src: "/img/capr/capr_2.png" },
+    ]}
+    links={[
+      {
+        label: "Github",
+        route: "https://github.com/knightss27/capr",
+      },
+    ]}
+  >
+    <span slot="title">CAPR</span>
+    <span slot="description">
+      Worked as a research assistant to Professor Nathan Hill at Trinity College
+      Dublin on computer assisted proto-language reconstruction (CAPR). Re-wrote,
+      revised, and edited existing code for the reconstruction of Proto-Burmese,
+      using Python, Flask, and React. 
     </span>
   </Project>
   <Project
@@ -96,11 +119,6 @@
     ]}
     links={[
       { label: "Github", route: "https://github.com/fosshostorg/fosshost.org" },
-      {
-        label: "Figma",
-        route:
-          "https://www.figma.com/file/5hgu89uLaHeIis3SqS2MvM/Fosshost-Website-Update",
-      },
       { label: "Site", route: "https://fosshost.org" },
     ]}
   >
