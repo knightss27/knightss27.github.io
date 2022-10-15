@@ -7,15 +7,15 @@
   <h1>Hi there, I'm</h1>
   <Header />
   <p>
-    Currently I'm a high school senior interested computer science and history.
+    I'm currently a Freshman at The University of Chicago, double majoring in Computer Science and Linguistics.
   </p>
   <p>
     As it stands, I've written a lot of stuff for the web using Svelte or React,
     but have also written significantly in Java, and less so in Python and Go.
   </p>
   <p>
-    Outside of writing code, I play bass and lead both the Mock Trial and Speech
-    & Debate teams at my school.
+    Outside of writing code, I play bass and led both the Mock Trial and Speech
+    & Debate teams at my high school.
   </p>
   <p>
     View my <a
@@ -26,6 +26,37 @@
   </p>
   <br />
   <h1>Projects</h1>
+  <Project
+    images={[
+      { src: "/img/nw/example_01.png" },
+      { src: "/img/nw/example_02.png" },
+      { src: "/img/nw/store_page.png" },
+    ]}
+    links={[
+      {
+        label: "Github",
+        route: "https://github.com/knightss27/grafana-network-weathermap"
+      },
+      {
+        label: "Grafana",
+        route: "https://grafana.com/grafana/plugins/knightss27-weathermap-panel/"
+      }
+    ]}
+    >
+    <span slot="title">Grafana Network Weathermap</span>
+    <span slot="description">
+    Developed the only modern network weathermap plugin for Grafana, an open-source 
+    monitoring platform. Approved and published as a community plugin 
+    with over 3000 instalations. Built entirely with SVG transformations in React, 
+    inspired by the well known, original
+      <a
+        class="styled-link"
+        href="https://network-weathermap.com/"
+        target="_blank"
+        >PHP Network Weathermap.
+      </a>
+    </span>
+  </Project>
   <Project
     images={[
       { src: "/img/uzbek-dictionary/fuzzy_search.png" },
