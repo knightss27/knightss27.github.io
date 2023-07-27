@@ -7,9 +7,9 @@ export let data
 {#if data.pathname !== "/"}
 <nav>
     <ul>
-        <li><a href="/about">me</a></li>
-        <li class="middle"><a href="/projects">projects</a></li>
-        <li><a href="/cv">cv</a></li>
+        <li class:active={data.pathname === "/about"}><a href="/about">me</a></li>
+        <li class:active={data.pathname === "/projects"} class="middle"><a href="/projects">projects</a></li>
+        <li class:active={data.pathname === "/cv"}><a href="/cv">cv</a></li>
     </ul>
 </nav>
 {/if}
@@ -53,6 +53,9 @@ export let data
     li {
         width: 65px;
         text-align: center;
+    }
+    li.active a {
+        border-bottom: 1px solid black;
     }
     li.middle {
         padding: 0rem 2rem;
