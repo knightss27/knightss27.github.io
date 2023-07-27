@@ -18,7 +18,7 @@
         max-width: 800px;
     }
     img {
-        width: 400px;
+        width: 300px;
         max-width: 50%;
         border-radius: 50%;
     }

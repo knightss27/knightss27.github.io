@@ -24,7 +24,8 @@ export let data
 
 <style>
     main {
-        max-width: 800px;
+        width: 800px;
+        max-width: 90%;
         margin: 0 auto;
         min-height: fit-content;
         display: flex;
