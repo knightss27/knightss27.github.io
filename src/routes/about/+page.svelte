@@ -6,7 +6,7 @@
 
 <div>
     <img alt="headshot" src={profile} />
-    <h3>about me</h3>
+    <h2>about me</h2>
     <p><SvelteMarkdown source={about} isInline /></p>
 </div>
 
@@ -22,7 +22,7 @@
         max-width: 50%;
         border-radius: 50%;
     }
-    h3 {
+    h2 {
         font-weight: 500;
     }
     p {

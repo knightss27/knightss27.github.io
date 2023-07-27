@@ -4,8 +4,6 @@ import { fade } from 'svelte/transition'
 export let data
 </script>
 
-
-{#key data.pathname}
 {#if data.pathname !== "/"}
 <nav>
     <ul>
@@ -15,6 +13,7 @@ export let data
     </ul>
 </nav>
 {/if}
+{#key data.pathname}
 <main
     in:fade={{ duration: 300, delay: 400 }}
     out:fade={{ duration: 300 }}
@@ -41,7 +40,7 @@ export let data
         width: 100%;
         justify-content: center;
         padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
         background: white;
     }
     ul {
