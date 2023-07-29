@@ -48,6 +48,11 @@
       transition: ease all 0.3s !important;
       max-width: 255px !important;
     }
+    @media only screen and (max-width: 800px) {
+      div :global(.svelte-images-gallery img) {
+        max-width: 100% !important;
+      }
+    }
     div :global(img):hover {
       filter: grayscale(0.5);
       opacity: 0.5;
