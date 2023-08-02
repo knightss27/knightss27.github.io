@@ -4,7 +4,7 @@
 
 <div>
 <img alt="resume" src={resume}/>
-<a href="/CV-SethKnights-7-2023.pdf">download full</a>
+<a href="/CV-SethKnights-7-2023-1.pdf">download full</a>
 </div>
 
 <style>
