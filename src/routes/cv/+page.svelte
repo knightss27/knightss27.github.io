@@ -1,5 +1,4 @@
 <script>
-    import resume from "$lib/assets/Resume-SethKnights-7-2023.png";
 </script>
 
 <div>
