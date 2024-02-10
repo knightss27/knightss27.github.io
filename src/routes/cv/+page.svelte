@@ -3,8 +3,9 @@
 </script>
 
 <div>
-<img alt="resume" src={resume}/>
-<a href="/CV-SethKnights-7-2023-1.pdf">download full</a>
+    reach out to seth @ this domain
+<!-- <img alt="resume" src={resume}/> -->
+<!-- <a href="/CV-SethKnights-7-2023-1.pdf">download full</a> -->
 </div>
 
 <style>

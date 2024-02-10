@@ -3,6 +3,27 @@
 </script>
 
 <div>
+    <Project
+    title="PULSE-A Optical Payload"
+    images={[
+      { src: "/img/pulse/render.png" },
+      { src: "/img/pulse/zos.png" },
+      { src: "/img/pulse/team.jpg" },
+    ]}
+    links={[
+      {
+        label: "SEDS-UChicago",
+        route: "https://voices.uchicago.edu/seds/",
+      },
+    ]}
+  >
+    <span slot="description">
+      I lead the development of a polarization-modulated optical communications system
+      for SEDS-UChicago. This included optical systems design and simulation (in Zemax)
+      as well as copious amount of research paper reading. I am now working on bringing
+      a prototype payload to life, developed with the help and space of UChicago PME's Zhong Lab.
+    </span>
+  </Project>
   <Project
     title="Grafana Network Weathermap"
     images={[
