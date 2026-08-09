@@ -9,20 +9,443 @@
 			body {
 				height: 100%;
 				margin: 0;
+				overflow: hidden;
 			}
 
 			body {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: #1b1918;
-				color: #ffffff;
+				background: #ffffff;
+				color: #000000;
 				font-family: "Times New Roman", Times, serif;
-				font-size: 2rem;
+				font-size: 1rem;
+			}
+
+			#field {
+				display: block;
+				width: 100vw;
+				height: 100vh;
+				height: 100dvh;
+			}
+
+			/* The field lines are drawn as dots: round caps on stub-length strokes. */
+			#field path {
+				fill: none;
+				stroke: #000000;
+				stroke-width: 1.6;
+				stroke-linecap: round;
+			}
+
+			#field text {
+				font-family: "Times New Roman", Times, serif;
+				font-size: 1em;
+				fill: #000000;
+                cursor: pointer;			
+            }
+
+			#field rect {
+				fill: #ffffff;
+				stroke: #000000;
+				stroke-width: 0;
+				transition:
+					stroke-width 220ms cubic-bezier(0.22, 1, 0.36, 1),
+					transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+				/* Stretched, the bar would otherwise carry a stretched outline too. */
+				vector-effect: non-scaling-stroke;
+			}
+
+			/* Clicking the magnet draws the bar out to its full span, and then, once
+			   that has landed, drops its bottom edge to the foot of the page. The two
+			   run in sequence: the script adds the second class when the first
+			   transition ends. Only the bar scales — the name keeps its shape while
+			   the magnet grows around it — and the field behind it is left exactly as
+			   it was drawn. Both scales are always named, so each step interpolates
+			   one factor and leaves the other standing. */
+			#magnet.open rect {
+				transform: scaleX(var(--stretch, 1)) translateY(0px) scaleY(1);
+			}
+
+			/* The lift comes before the scale in the list, so it shifts the bar by a
+			   flat 1em rather than by 1em multiplied by the scale. */
+			#magnet.open.dropped rect {
+				transform: scaleX(var(--stretch, 1)) translateY(var(--lift, 0px)) scaleY(var(--drop, 1));
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				#field rect {
+					transition: none;
+				}
+			}
+
+			/* Hovering the bar or the name outlines the magnet. It hangs off the
+			   group rather than the rect, because the name paints over the rect and
+			   would otherwise take the pointer and drop the hover on every glyph. */
+			#magnet:hover rect {
+				stroke-width: 1;
+                cursor: pointer;
+			}
+            
+
+
+			/* The writing inside the box, which is placed over the opened box by the
+			   script and fades in once the box has finished opening. Hidden rather
+			   than merely transparent, so its links cannot be tabbed to or clicked
+			   while the box is shut. */
+			#about {
+				position: fixed;
+				box-sizing: border-box;
+				margin: 0;
+				text-align: center;
+				line-height: 1.5;
+				overflow-y: auto;
+				visibility: hidden;
+				opacity: 0;
+				/* Leaving: a transition belongs to the state being moved into, so this
+				   is the fade OUT — kept short, and well inside the box's own 520ms, so
+				   the writing is gone before the box has shrunk far enough to crop it.
+				   The fade in is the slower one, on .shown below. */
+				transition:
+					opacity 120ms ease-out,
+					visibility 0s linear 120ms;
+			}
+
+			#about.shown {
+				visibility: visible;
+				opacity: 1;
+				transition:
+					opacity 380ms ease-out,
+					visibility 0s;
+			}
+
+			#about p {
+				margin: 0 1.5em 1em;
+			}
+
+			#about a {
+				color: inherit;
+				text-decoration: underline;
+                font-weight: 600;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				#about {
+					transition: none;
+				}
+			}
+
+			/* Off-screen probe used to size the magnet to the text "seth knights". */
+			#probe {
+				position: absolute;
+				visibility: hidden;
+				white-space: pre;
+				font-size: 2em;
+				line-height: 1;
+				left: -9999px;
+				top: -9999px;
 			}
 		</style>
 	</head>
 	<body>
-		<main>coming soon</main>
+		<span id="probe">seth knights</span>
+		<svg id="field" xmlns="http://www.w3.org/2000/svg" aria-label="seth knights, a bar magnet and its lines of force"></svg>
+		<div id="about">
+			<p><b>hi there, i’m seth!</b> currently, i research silicon photonics at <a target="_blank" rel="noopener" href="https://ocaqpi.ece.ucsb.edu/">ucsb</a>.</p>
+			<p>
+				i am particularly interested in integrated photonics for quantum sensing and quantum computing.
+			</p>
+			<p>
+				previously, i studied physics at uchicago, where i led the student <a target="_blank" rel="noopener" href="https://www.uchicagospaceprogram.org/">space program</a> and researched
+				<a target="_blank" rel="noopener" href="https://sites.google.com/view/zhonglab-quantum/research">quantum networking</a>.
+			</p>
+		</div>
+		<script>
+			const svg = document.getElementById("field");
+			const probe = document.getElementById("probe");
+			const about = document.getElementById("about");
+			const NS = "http://www.w3.org/2000/svg";
+
+			// Field of two point poles (+1 at the right end, -1 at the left end).
+			function field(x, y, ax, cx, cy) {
+				const dxr = x - (cx + ax),
+					dxl = x - (cx - ax),
+					dy = y - cy;
+				const rr = Math.pow(dxr * dxr + dy * dy, 1.5) || 1e-9;
+				const rl = Math.pow(dxl * dxl + dy * dy, 1.5) || 1e-9;
+				return [dxr / rr - dxl / rl, dy / rr - dy / rl];
+			}
+
+			function unit(v) {
+				const m = Math.hypot(v[0], v[1]) || 1e-9;
+				return [v[0] / m, v[1] / m];
+			}
+
+			// Field lines are contours of this field's stream function, so it labels
+			// every line with a single number, without tracing anything. Reported as
+			// the radius where the line crosses the magnet's perpendicular bisector:
+			// two seeds with a similar radius sit on lines that would be drawn nearly
+			// on top of each other, which is what lets near-duplicates be dropped.
+			function apex(x, y, geom) {
+				const { ax, cx, cy } = geom;
+				const dxr = x - (cx + ax),
+					dxl = x - (cx - ax),
+					dy = y - cy;
+				const rr = Math.hypot(dxr, dy) || 1e-9;
+				const rl = Math.hypot(dxl, dy) || 1e-9;
+				const psi = dxl / rl - dxr / rr;
+				return psi > 1e-12 ? ax * Math.sqrt(4 / (psi * psi) - 1) : Infinity;
+			}
+
+			// Trace one field line from a seed point, following the field
+			// direction (dir = +1) or against it (dir = -1), by RK4.
+			function trace(sx, sy, dir, geom) {
+				const { ax, cx, cy, far } = geom;
+				const pts = [[sx, sy]];
+				let x = sx,
+					y = sy;
+
+				for (let i = 0; i < 20000; i++) {
+					const dr = Math.hypot(x - (cx + ax), y - cy);
+					const dl = Math.hypot(x - (cx - ax), y - cy);
+					if (Math.min(dr, dl) < 0.6) break; // landed on a pole
+					const step = dir * Math.min(8, Math.max(0.4, 0.15 * Math.min(dr, dl)));
+
+					const k1 = unit(field(x, y, ax, cx, cy));
+					const k2 = unit(field(x + (step * k1[0]) / 2, y + (step * k1[1]) / 2, ax, cx, cy));
+					const k3 = unit(field(x + (step * k2[0]) / 2, y + (step * k2[1]) / 2, ax, cx, cy));
+					const k4 = unit(field(x + step * k3[0], y + step * k3[1], ax, cx, cy));
+
+					x += (step * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0])) / 6;
+					y += (step * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])) / 6;
+					pts.push([x, y]);
+
+					if (Math.hypot(x - cx, y - cy) > far) break; // runaway guard
+				}
+				return pts;
+			}
+
+			// Walk a traced line and drop a dot every so often, the gap redrawn at
+			// random each time, so the dots sit at irregular intervals rather than
+			// marching evenly. Lines are traced whole and the ones off the page are
+			// dropped here, which is how the wide loops show up running off the edge.
+			const GAP_MIN = 3.5;
+			const GAP_MAX = 11;
+			const gap = () => GAP_MIN + Math.random() * (GAP_MAX - GAP_MIN);
+
+			function dots(pts, w, h) {
+				let d = "",
+					need = gap(); // random phase, so lines don't start in step
+
+				for (let i = 1; i < pts.length; i++) {
+					const a = pts[i - 1],
+						b = pts[i];
+					const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+					let at = 0;
+
+					while (need <= len - at) {
+						at += need;
+						need = gap();
+						const f = at / len;
+						const x = a[0] + (b[0] - a[0]) * f,
+							y = a[1] + (b[1] - a[1]) * f;
+						if (x >= 0 && x <= w && y >= 0 && y <= h) {
+							d += "M" + x.toFixed(1) + " " + y.toFixed(1) + "h.01";
+						}
+					}
+					need -= len - at;
+				}
+				return d;
+			}
+
+			function draw() {
+				const w = svg.clientWidth,
+					h = svg.clientHeight;
+				svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+				while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+				const rect = probe.getBoundingClientRect();
+				const mw = rect.width; // magnet is the size of "seth knights" at 2em
+				const mh = rect.height;
+				const cx = w / 2,
+					cy = h / 2 - h / 8; // an eighth of the view height above centre
+				const far = Math.hypot(w, h) * 6;
+				// The poles sit inside the bar, so the lines fan out across the end
+				// faces instead of pinching into a point at each corner.
+				const geom = { ax: mw * 0.28, cx, cy, far };
+
+				// A whole line, traced out of the seed in both directions.
+				const line = (sx, sy) => {
+					const back = trace(sx, sy, -1, geom);
+					back.reverse().pop();
+					return back.concat(trace(sx, sy, 1, geom));
+				};
+
+				// The field is symmetric across both of the magnet's axes, so seeding
+				// one side is enough — each line is drawn together with its mirrors.
+				// The page is only symmetric left to right though, now that the magnet
+				// sits above centre, so it is the right hand side that gets walked:
+				// there is more page below the magnet than above it.
+				const seeds = [];
+
+				// Loops that close inside the page: seed them on the perpendicular
+				// bisector, where the field is horizontal, at radii growing
+				// geometrically out from the magnet. That nests them evenly.
+				const rMin = mh * 0.75;
+				const rMax = Math.max(cy, h - cy) * 0.9; // the deepest loop still on the page
+				const n = 10;
+				for (let i = 0; i < n; i++) {
+					seeds.push([cx, cy - rMin * Math.pow(rMax / rMin, i / (n - 1))]);
+				}
+
+				// Every other visible line runs off the page, so it must cross the
+				// border — which makes the border itself the place to seed them.
+				// Spacing them evenly along it spreads the lines evenly where they
+				// leave, and fills the wedges out to the left and right that the
+				// loops above never reach: those are lines whose loops close so far
+				// off screen that no sane radius on the bisector would find them.
+				// In along the bottom, up the right side, then back out along the top.
+				const edge = w + h;
+				const nEdge = 44;
+				for (let i = 0; i < nEdge; i++) {
+					const s = (edge * (i + 0.5)) / nEdge;
+					if (s < w / 2) seeds.push([w - 1 - s, h - 1]);
+					else if (s < w / 2 + h) seeds.push([w - 1, h - 1 - (s - w / 2)]);
+					else seeds.push([w - 1 - (s - w / 2 - h), 1]);
+				}
+
+				// The line straight along the magnet's own axis, which no seed above
+				// lands on exactly and which would otherwise leave a wedge of empty
+				// page at each side. It runs off both edges, so it needs a seed at
+				// each; it is its own mirror, and it is nobody's near-duplicate, so
+				// it skips the pass below.
+				const lines = [line(w - 1, cy), line(1, cy)];
+
+				// Seeds spaced evenly on the page are not spaced evenly across the
+				// field, so some of them land on lines that would overlap. Keep them
+				// only where the line is a fair step out from the last one kept.
+				let last = 0;
+				for (const s of seeds.sort((a, b) => apex(a[0], a[1], geom) - apex(b[0], b[1], geom))) {
+					const r = apex(s[0], s[1], geom);
+					if (r < last * 1.2) continue;
+					last = r;
+
+					// Draw the seed's mirrors as well as the seed. Mirroring below the
+					// magnet picks up a genuinely different line. Mirroring across it
+					// re-draws the same one — but the widest loops run past the guard
+					// in trace() before they can curve back, so without a seed on the
+					// far side their other arc would simply be missing, which is what
+					// left the left of the page thinner than the right.
+					for (const sx of Math.abs(s[0] - cx) < 1 ? [s[0]] : [s[0], 2 * cx - s[0]]) {
+						lines.push(line(sx, s[1]));
+						lines.push(line(sx, 2 * cy - s[1]));
+					}
+				}
+
+				// Every dot in one path, as a run of stubs too short to be anything
+				// but their own round line caps.
+				let d = "";
+				for (const pts of lines) d += dots(pts, w, h);
+				const marks = document.createElementNS(NS, "path");
+				marks.setAttribute("d", d);
+				svg.appendChild(marks);
+
+				// The magnet itself, drawn last so it masks the lines inside it. The
+				// bar and the name go in one group: hovering either is hovering it.
+				const magnet = document.createElementNS(NS, "g");
+				magnet.setAttribute("id", "magnet");
+
+				const bar = document.createElementNS(NS, "rect");
+				bar.setAttribute("x", (cx - mw / 2).toFixed(2));
+				bar.setAttribute("y", (cy - mh / 2).toFixed(2));
+				bar.setAttribute("width", mw.toFixed(2));
+				bar.setAttribute("height", mh.toFixed(2));
+				// Scale about the centre of the bar's top edge: sideways it grows to
+				// both sides, downward it grows only downward.
+				const top = cy - mh / 2;
+				bar.style.transformOrigin = `${cx.toFixed(2)}px ${top.toFixed(2)}px`;
+				magnet.appendChild(bar);
+
+				// The name, which is what the magnet was measured from in the first
+				// place, so it fills the bar it sits in.
+				const label = document.createElementNS(NS, "text");
+				label.setAttribute("x", cx.toFixed(2));
+				label.setAttribute("y", cy.toFixed(2));
+				label.setAttribute("text-anchor", "middle");
+				label.setAttribute("dominant-baseline", "central");
+				label.textContent = probe.textContent;
+				magnet.appendChild(label);
+
+				// How far the bar has to stretch to reach 500px — or, on a page too
+				// narrow to hold that, to come within 1em of each edge. Never less
+				// than 1, or a page narrower than the name itself would shrink it.
+				const em = parseFloat(getComputedStyle(document.body).fontSize) || 16;
+				const span = Math.min(500, w - 2 * em);
+				magnet.style.setProperty("--stretch", Math.max(1, span / mw).toFixed(4));
+
+				// The writing sits in the opened box, under the name and inset from
+				// the sides.
+				const writing = cy + mh / 2 + em;
+				about.classList.remove("shown"); // a redraw closes the box
+				about.style.left = `${(cx - span / 2).toFixed(2)}px`;
+				about.style.top = `${writing.toFixed(2)}px`;
+				about.style.width = `${span.toFixed(2)}px`;
+				about.style.padding = `0 ${em}px`;
+
+				// The box opens to an em past the end of the writing rather than to the
+				// foot of the page, so the writing has to be measured — at the width it
+				// will be read at, which is why this follows the placing above. Where
+				// it will not fit, the box stops at the foot and the writing scrolls.
+				about.style.maxHeight = "none";
+				const foot = Math.min(h, writing + about.scrollHeight + em);
+				about.style.maxHeight = `${Math.max(0, foot - writing - em).toFixed(2)}px`;
+
+				// How far the bar has to stretch vertically to reach that foot while
+				// its top edge rises 1em, opening up some padding above the name.
+				magnet.style.setProperty("--lift", `${-em}px`);
+				magnet.style.setProperty("--drop", ((foot - top + em) / mh).toFixed(4));
+
+				// A click runs the two in sequence, out and then down, and a click
+				// while open runs them back in reverse. Waiting on transitionend keeps
+				// the second step pinned to the end of the first, whatever it is timed
+				// at — except where transitions are off entirely and none ever fires,
+				// so there the two steps are applied together.
+				const still = matchMedia("(prefers-reduced-motion: reduce)");
+				let open = false;
+
+				magnet.addEventListener("click", () => {
+					open = !open;
+					if (open) {
+						magnet.classList.add("open");
+						if (still.matches) {
+							magnet.classList.add("dropped");
+							about.classList.add("shown");
+						}
+					} else {
+						about.classList.remove("shown"); // goes first, whatever step we are on
+						if (magnet.classList.contains("dropped")) {
+							magnet.classList.remove("dropped");
+							if (still.matches) magnet.classList.remove("open");
+						} else {
+							magnet.classList.remove("open"); // caught mid-stretch, so just close
+						}
+					}
+				});
+
+				bar.addEventListener("transitionend", (e) => {
+					if (e.propertyName !== "transform") return;
+					if (!open) magnet.classList.remove("open");
+					else if (magnet.classList.contains("dropped")) about.classList.add("shown");
+					else magnet.classList.add("dropped");
+				});
+
+				svg.appendChild(magnet);
+			}
+
+			draw();
+
+			let t;
+			addEventListener("resize", () => {
+				clearTimeout(t);
+				t = setTimeout(draw, 100);
+			});
+			if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+		</script>
 	</body>
 </html>
